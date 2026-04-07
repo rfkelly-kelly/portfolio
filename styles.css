@@ -1249,7 +1249,7 @@ body.cursor-active .cursor-ring {
 @media (max-width: 760px) {
   .overlayContent {
     --title-top: 7%;
-    --phone-top: 48.5%;
+    --phone-top: 44.5%;
     width: min(94vw, 500px);
     height: min(84vh, 620px);
     padding: 0.8rem;
@@ -1327,6 +1327,10 @@ body.cursor-active .cursor-ring {
     grid-template-columns: 1fr;
   }
 
+  .about-highlights-label {
+    display: none;
+  }
+
   .project-modal-card {
     padding: 1rem;
   }
@@ -1349,7 +1353,7 @@ body.cursor-active .cursor-ring {
 @media (max-width: 430px) {
   .overlayContent {
     --title-top: 8%;
-    --phone-top: 49.5%;
+    --phone-top: 45.5%;
     height: min(82vh, 560px);
   }
 
