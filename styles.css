@@ -1247,6 +1247,31 @@ body.cursor-active .cursor-ring {
 }
 
 @media (max-width: 760px) {
+  .overlayContent {
+    --title-top: 7%;
+    --phone-top: 48.5%;
+    width: min(94vw, 500px);
+    height: min(84vh, 620px);
+    padding: 0.8rem;
+  }
+
+  .overlay-title {
+    max-width: 92%;
+    line-height: 1.05;
+    font-size: clamp(1.95rem, 7vw, 2.5rem);
+  }
+
+  .phone-stack {
+    width: clamp(170px, 53vw, 240px);
+    height: clamp(140px, 43vw, 195px);
+    margin-bottom: clamp(1.3rem, 5vw, 2rem);
+  }
+
+  .overlay-subtitle {
+    font-size: clamp(1rem, 3.9vw, 1.35rem);
+    letter-spacing: 0.05em;
+  }
+
   .hero-content {
     max-width: min(94vw, 620px);
   }
@@ -1316,6 +1341,24 @@ body.cursor-active .cursor-ring {
   .contact-form button {
     justify-self: stretch;
     padding: 0.72rem 1rem;
+  }
+}
+
+@media (max-width: 430px) {
+  .overlayContent {
+    --title-top: 8%;
+    --phone-top: 49.5%;
+    height: min(82vh, 560px);
+  }
+
+  .phone-stack {
+    width: clamp(155px, 56vw, 200px);
+    height: clamp(126px, 45vw, 168px);
+    margin-bottom: clamp(1.1rem, 4.8vw, 1.6rem);
+  }
+
+  .overlay-subtitle {
+    font-size: clamp(0.95rem, 4.2vw, 1.12rem);
   }
 }
 
