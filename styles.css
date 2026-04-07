@@ -1259,6 +1259,7 @@ body.cursor-active .cursor-ring {
     max-width: 92%;
     line-height: 1.05;
     font-size: clamp(1.95rem, 7vw, 2.5rem);
+    white-space: nowrap;
   }
 
   .phone-stack {
@@ -1270,6 +1271,7 @@ body.cursor-active .cursor-ring {
   .overlay-subtitle {
     font-size: clamp(1rem, 3.9vw, 1.35rem);
     letter-spacing: 0.05em;
+    white-space: nowrap;
   }
 
   .hero-content {
@@ -1359,6 +1361,20 @@ body.cursor-active .cursor-ring {
 
   .overlay-subtitle {
     font-size: clamp(0.95rem, 4.2vw, 1.12rem);
+  }
+
+  .overlay-title,
+  .overlay-subtitle {
+    white-space: nowrap;
+  }
+
+  .overlay-title {
+    font-size: clamp(1.55rem, 7.5vw, 2rem);
+  }
+
+  .overlay-subtitle {
+    font-size: clamp(0.88rem, 3.8vw, 1.02rem);
+    letter-spacing: 0.04em;
   }
 }
 
