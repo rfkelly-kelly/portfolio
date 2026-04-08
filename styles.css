@@ -83,6 +83,32 @@ body.loading {
   box-shadow: 0 24px 52px rgba(0, 0, 0, 0.25);
 }
 
+.overlay-close {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: 1px solid rgba(18, 18, 18, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.68);
+  color: #1b1b1b;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 1.35rem;
+  line-height: 0.9;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: transform 180ms ease, background-color 220ms ease;
+}
+
+.overlay-close:hover,
+.overlay-close:focus-visible {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.86);
+}
+
 .overlay-title {
   position: absolute;
   left: 50%;
@@ -1296,7 +1322,7 @@ body.cursor-active .cursor-ring {
     align-items: stretch;
     width: min(94vw, 500px);
     height: min(84vh, 620px);
-    padding: 0.9rem 0.8rem 1rem;
+    padding: 1rem 0.9rem 1.1rem;
   }
 
   .overlay-title {
@@ -1308,8 +1334,13 @@ body.cursor-active .cursor-ring {
     max-width: 92%;
     margin-top: 0.15rem;
     line-height: 1.05;
-    font-size: clamp(1.95rem, 7vw, 2.5rem);
+    font-size: clamp(2.1rem, 7.6vw, 2.8rem);
     white-space: nowrap;
+  }
+
+  .overlay-close {
+    top: 0.45rem;
+    right: 0.45rem;
   }
 
   .phone-group {
@@ -1318,19 +1349,26 @@ body.cursor-active .cursor-ring {
     top: auto;
     transform: none;
     align-self: center;
-    margin-top: 0.1rem;
+    gap: clamp(0.72rem, 2vw, 1.1rem);
+    margin-top: 0.12rem;
   }
 
   .phone-stack {
-    width: clamp(149px, 47.5vw, 204px);
-    height: clamp(122px, 38.8vw, 167px);
-    margin-bottom: clamp(1rem, 4vw, 1.55rem);
+    width: clamp(156px, 49.2vw, 214px);
+    height: clamp(128px, 40.2vw, 174px);
+    margin-bottom: clamp(1.05rem, 4.2vw, 1.7rem);
   }
 
   .overlay-subtitle {
-    font-size: clamp(0.98rem, 3.7vw, 1.25rem);
-    letter-spacing: 0.05em;
+    font-size: clamp(1.08rem, 4.2vw, 1.38rem);
+    letter-spacing: 0.04em;
     white-space: nowrap;
+  }
+
+  .overlay-cta {
+    min-width: 168px;
+    padding: 0.45rem 0.98rem;
+    font-size: 0.96rem;
   }
 
   .hero-content {
@@ -1414,13 +1452,13 @@ body.cursor-active .cursor-ring {
     --title-top: 8%;
     --phone-top: 45.5%;
     height: min(82vh, 560px);
-    padding: 0.8rem 0.7rem 0.95rem;
+    padding: 0.92rem 0.75rem 1.05rem;
   }
 
   .phone-stack {
-    width: clamp(141px, 51.5vw, 178px);
-    height: clamp(114px, 39.8vw, 151px);
-    margin-bottom: clamp(0.9rem, 4.2vw, 1.35rem);
+    width: clamp(148px, 53vw, 188px);
+    height: clamp(120px, 41.2vw, 158px);
+    margin-bottom: clamp(0.95rem, 4.5vw, 1.5rem);
   }
 
   .overlay-subtitle {
@@ -1433,12 +1471,23 @@ body.cursor-active .cursor-ring {
   }
 
   .overlay-title {
-    font-size: clamp(1.5rem, 7.1vw, 1.9rem);
+    font-size: clamp(1.72rem, 8vw, 2.15rem);
   }
 
   .overlay-subtitle {
-    font-size: clamp(0.8rem, 3.45vw, 0.98rem);
-    letter-spacing: 0.03em;
+    font-size: clamp(0.96rem, 4.2vw, 1.14rem);
+    letter-spacing: 0.035em;
+  }
+
+  .overlay-cta {
+    min-width: 160px;
+    font-size: 0.9rem;
+  }
+
+  .overlay-close {
+    width: 1.85rem;
+    height: 1.85rem;
+    font-size: 1.2rem;
   }
 }
 

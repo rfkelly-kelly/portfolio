@@ -10,6 +10,7 @@ const phoneFallback = document.querySelector('.phone-fallback');
 const overlaySparkleLayer = document.querySelector('.overlay-sparkle-layer');
 const phoneStack = document.querySelector('.phone-stack');
 const overlayCta = document.querySelector('.overlay-cta');
+const overlayClose = document.querySelector('.overlay-close');
 
 const dismissIntroOverlay = () => {
   if (!introOverlay) return;
@@ -73,6 +74,12 @@ if (introOverlay) {
           contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
       }, prefersReducedMotion ? 0 : 520);
+    });
+  }
+
+  if (overlayClose) {
+    overlayClose.addEventListener('click', () => {
+      dismissIntroOverlay();
     });
   }
 
