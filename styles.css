@@ -1332,7 +1332,7 @@ body.cursor-active .cursor-ring {
     top: auto;
     transform: none;
     position: relative;
-    top: clamp(57px, 13vw, 68px);
+    top: clamp(68px, 16vw, 82px);
     justify-self: center;
     max-width: 92%;
     margin-top: 0.15rem;
@@ -1515,7 +1515,7 @@ body.cursor-active .cursor-ring {
 
   .overlay-title {
     font-size: clamp(1.72rem, 8vw, 2.15rem);
-    top: clamp(43px, 12vw, 52px);
+    top: clamp(54px, 15vw, 66px);
   }
 
   .overlay-subtitle {
