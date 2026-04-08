@@ -1249,7 +1249,7 @@ body.cursor-active .cursor-ring {
 @media (max-width: 760px) {
   .overlayContent {
     --title-top: 7%;
-    --phone-top: 41.5%;
+    --phone-top: 38.5%;
     width: min(94vw, 500px);
     height: min(84vh, 620px);
     padding: 0.8rem;
@@ -1353,7 +1353,7 @@ body.cursor-active .cursor-ring {
 @media (max-width: 430px) {
   .overlayContent {
     --title-top: 8%;
-    --phone-top: 42.5%;
+    --phone-top: 39.5%;
     height: min(82vh, 560px);
   }
 
