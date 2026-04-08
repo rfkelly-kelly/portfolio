@@ -1291,26 +1291,44 @@ body.cursor-active .cursor-ring {
   .overlayContent {
     --title-top: 7%;
     --phone-top: 44.5%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    align-items: stretch;
     width: min(94vw, 500px);
     height: min(84vh, 620px);
-    padding: 0.8rem;
+    padding: 0.9rem 0.8rem 1rem;
   }
 
   .overlay-title {
+    position: static;
+    left: auto;
+    top: auto;
+    transform: none;
+    justify-self: center;
     max-width: 92%;
+    margin-top: 0.15rem;
     line-height: 1.05;
     font-size: clamp(1.95rem, 7vw, 2.5rem);
     white-space: nowrap;
   }
 
+  .phone-group {
+    position: static;
+    left: auto;
+    top: auto;
+    transform: none;
+    align-self: center;
+    margin-top: 0.1rem;
+  }
+
   .phone-stack {
     width: clamp(149px, 47.5vw, 204px);
     height: clamp(122px, 38.8vw, 167px);
-    margin-bottom: clamp(1.3rem, 5vw, 2rem);
+    margin-bottom: clamp(1rem, 4vw, 1.55rem);
   }
 
   .overlay-subtitle {
-    font-size: clamp(1rem, 3.9vw, 1.35rem);
+    font-size: clamp(0.98rem, 3.7vw, 1.25rem);
     letter-spacing: 0.05em;
     white-space: nowrap;
   }
@@ -1396,12 +1414,13 @@ body.cursor-active .cursor-ring {
     --title-top: 8%;
     --phone-top: 45.5%;
     height: min(82vh, 560px);
+    padding: 0.8rem 0.7rem 0.95rem;
   }
 
   .phone-stack {
     width: clamp(141px, 51.5vw, 178px);
     height: clamp(114px, 39.8vw, 151px);
-    margin-bottom: clamp(1.1rem, 4.8vw, 1.6rem);
+    margin-bottom: clamp(0.9rem, 4.2vw, 1.35rem);
   }
 
   .overlay-subtitle {
@@ -1414,12 +1433,12 @@ body.cursor-active .cursor-ring {
   }
 
   .overlay-title {
-    font-size: clamp(1.55rem, 7.5vw, 2rem);
+    font-size: clamp(1.5rem, 7.1vw, 1.9rem);
   }
 
   .overlay-subtitle {
-    font-size: clamp(0.88rem, 3.8vw, 1.02rem);
-    letter-spacing: 0.04em;
+    font-size: clamp(0.8rem, 3.45vw, 0.98rem);
+    letter-spacing: 0.03em;
   }
 }
 
