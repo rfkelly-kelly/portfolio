@@ -48,10 +48,18 @@ body.loading {
   z-index: 220;
   display: grid;
   place-items: center;
-  background: radial-gradient(circle at center, #fff8fc 0%, #f8c8dc 100%);
+  background: rgba(18, 18, 18, 0.32);
+  backdrop-filter: blur(4px);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 620ms ease, visibility 620ms ease;
+}
+
+#introOverlay.show {
   opacity: 1;
   visibility: visible;
-  transition: opacity 620ms ease, visibility 620ms ease;
+  pointer-events: auto;
 }
 
 #introOverlay.hide {
@@ -62,13 +70,17 @@ body.loading {
 
 .overlayContent {
   --title-top: 4.8%;
-  --phone-top: 47.6%;
+  --phone-top: 53.6%;
   position: relative;
-  width: min(92vw, 760px);
-  height: min(88vh, 760px);
+  width: min(92vw, 620px);
+  height: min(86vh, 640px);
   margin: 0 auto;
   text-align: center;
-  padding: 1.1rem;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: 1rem;
+  background: radial-gradient(circle at top, rgba(255, 248, 252, 0.96) 0%, rgba(248, 200, 220, 0.9) 100%);
+  box-shadow: 0 24px 52px rgba(0, 0, 0, 0.25);
 }
 
 .overlay-title {
@@ -81,6 +93,7 @@ body.loading {
   font-size: clamp(2.2rem, 3.8vw, 3.35rem);
   letter-spacing: 0.01em;
   text-transform: none;
+  white-space: nowrap;
   color: #141414;
   opacity: 0;
   animation: overlayFadeIn 620ms ease forwards;
@@ -111,10 +124,34 @@ body.loading {
   gap: clamp(0.6rem, 1.5vw, 0.95rem);
 }
 
+.overlay-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 152px;
+  margin-top: 0.15rem;
+  border: 1px solid rgba(18, 18, 18, 0.24);
+  border-radius: 999px;
+  padding: 0.4rem 0.86rem;
+  text-decoration: none;
+  color: #1e1a17;
+  background: rgba(255, 255, 255, 0.55);
+  font-size: 0.9rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transition: transform 180ms ease, background-color 220ms ease;
+}
+
+.overlay-cta:hover,
+.overlay-cta:focus-visible {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.72);
+}
+
 .phone-stack {
   position: relative;
-  width: clamp(200px, 27vw, 290px);
-  height: clamp(165px, 22vw, 220px);
+  width: clamp(176px, 23.3vw, 247px);
+  height: clamp(146px, 19.4vw, 194px);
   margin-bottom: clamp(2.1rem, 4vw, 3rem);
   transition: transform 220ms ease;
   will-change: transform;
@@ -1249,7 +1286,7 @@ body.cursor-active .cursor-ring {
 @media (max-width: 760px) {
   .overlayContent {
     --title-top: 7%;
-    --phone-top: 38.5%;
+    --phone-top: 44.5%;
     width: min(94vw, 500px);
     height: min(84vh, 620px);
     padding: 0.8rem;
@@ -1263,8 +1300,8 @@ body.cursor-active .cursor-ring {
   }
 
   .phone-stack {
-    width: clamp(170px, 53vw, 240px);
-    height: clamp(140px, 43vw, 195px);
+    width: clamp(149px, 47.5vw, 204px);
+    height: clamp(122px, 38.8vw, 167px);
     margin-bottom: clamp(1.3rem, 5vw, 2rem);
   }
 
@@ -1353,13 +1390,13 @@ body.cursor-active .cursor-ring {
 @media (max-width: 430px) {
   .overlayContent {
     --title-top: 8%;
-    --phone-top: 39.5%;
+    --phone-top: 45.5%;
     height: min(82vh, 560px);
   }
 
   .phone-stack {
-    width: clamp(155px, 56vw, 200px);
-    height: clamp(126px, 45vw, 168px);
+    width: clamp(141px, 51.5vw, 178px);
+    height: clamp(114px, 39.8vw, 151px);
     margin-bottom: clamp(1.1rem, 4.8vw, 1.6rem);
   }
 

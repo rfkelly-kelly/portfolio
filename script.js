@@ -9,6 +9,7 @@ const phoneBaseImage = document.querySelector('.phone-base');
 const phoneFallback = document.querySelector('.phone-fallback');
 const overlaySparkleLayer = document.querySelector('.overlay-sparkle-layer');
 const phoneStack = document.querySelector('.phone-stack');
+const overlayCta = document.querySelector('.overlay-cta');
 
 const dismissIntroOverlay = () => {
   if (!introOverlay) return;
@@ -20,7 +21,18 @@ const dismissIntroOverlay = () => {
 };
 
 if (introOverlay) {
-  document.body.classList.add('loading');
+  const showIntroOverlay = () => {
+    introOverlay.classList.add('show');
+
+    // Safety: auto-dismiss after a short delay if nothing is clicked
+    window.setTimeout(() => {
+      if (introOverlay.style.display !== 'none') {
+        dismissIntroOverlay();
+      }
+    }, 8000);
+  };
+
+  window.setTimeout(showIntroOverlay, prefersReducedMotion ? 0 : 1200);
 
   // Match hero interaction style with a subtle star trail on overlay hover
   if (overlaySparkleLayer && !prefersReducedMotion) {
@@ -43,12 +55,26 @@ if (introOverlay) {
     });
   }
 
-  // Safety: allow clicking anywhere on the overlay to continue
+  // Dismiss only when clicking the backdrop outside the popup card
   introOverlay.addEventListener('click', (event) => {
-    if (event.target === introOverlay || event.target.closest('.overlayContent')) {
+    if (event.target === introOverlay) {
       dismissIntroOverlay();
     }
   });
+
+  if (overlayCta) {
+    overlayCta.addEventListener('click', (event) => {
+      event.preventDefault();
+      dismissIntroOverlay();
+
+      window.setTimeout(() => {
+        const contactSection = document.querySelector('#contact');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, prefersReducedMotion ? 0 : 520);
+    });
+  }
 
   // Safety: keyboard users can dismiss with Enter or Space
   window.addEventListener('keydown', (event) => {
@@ -57,12 +83,6 @@ if (introOverlay) {
     }
   });
 
-  // Safety: auto-dismiss after a short delay if nothing is clicked
-  window.setTimeout(() => {
-    if (introOverlay.style.display !== 'none') {
-      dismissIntroOverlay();
-    }
-  }, 5000);
 }
 
 if (phoneImage && phoneFallback) {
