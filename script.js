@@ -12,6 +12,18 @@ const phoneStack = document.querySelector('.phone-stack');
 const overlayCta = document.querySelector('.overlay-cta');
 const overlayClose = document.querySelector('.overlay-close');
 
+// Always start from the top section on refresh.
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+window.addEventListener('load', () => {
+  if (window.location.hash) {
+    history.replaceState(null, '', `${window.location.pathname}${window.location.search}`);
+  }
+  window.scrollTo(0, 0);
+});
+
 const dismissIntroOverlay = () => {
   if (!introOverlay) return;
   introOverlay.classList.add('hide');
