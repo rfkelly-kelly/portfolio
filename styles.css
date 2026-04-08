@@ -1332,7 +1332,7 @@ body.cursor-active .cursor-ring {
     top: auto;
     transform: none;
     position: relative;
-    top: 4%;
+    top: clamp(14px, 4vw, 20px);
     justify-self: center;
     max-width: 92%;
     margin-top: 0.15rem;
@@ -1363,7 +1363,7 @@ body.cursor-active .cursor-ring {
 
   .overlay-subtitle {
     position: relative;
-    top: 4%;
+    top: clamp(14px, 4vw, 20px);
     font-size: clamp(1.08rem, 4.2vw, 1.38rem);
     letter-spacing: 0.04em;
     white-space: nowrap;
@@ -1371,7 +1371,7 @@ body.cursor-active .cursor-ring {
 
   .overlay-cta {
     position: relative;
-    top: 4%;
+    top: clamp(14px, 4vw, 20px);
     min-width: 168px;
     padding: 0.45rem 0.98rem;
     font-size: 0.96rem;
@@ -1514,16 +1514,19 @@ body.cursor-active .cursor-ring {
 
   .overlay-title {
     font-size: clamp(1.72rem, 8vw, 2.15rem);
+    top: clamp(12px, 4vw, 16px);
   }
 
   .overlay-subtitle {
     font-size: clamp(0.96rem, 4.2vw, 1.14rem);
     letter-spacing: 0.035em;
+    top: clamp(12px, 4vw, 16px);
   }
 
   .overlay-cta {
     min-width: 160px;
     font-size: 0.9rem;
+    top: clamp(12px, 4vw, 16px);
   }
 
   .overlay-close {
