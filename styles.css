@@ -85,8 +85,8 @@ body.loading {
 
 .overlay-close {
   position: absolute;
-  top: 0.55rem;
-  right: 0.55rem;
+  inset: 0.55rem 0.55rem auto auto;
+  margin: 0;
   width: 2rem;
   height: 2rem;
   padding: 0;
@@ -100,6 +100,7 @@ body.loading {
   cursor: pointer;
   display: grid;
   place-items: center;
+  z-index: 6;
   transition: transform 180ms ease, background-color 220ms ease;
 }
 
@@ -1330,6 +1331,8 @@ body.cursor-active .cursor-ring {
     left: auto;
     top: auto;
     transform: none;
+    position: relative;
+    top: 4%;
     justify-self: center;
     max-width: 92%;
     margin-top: 0.15rem;
@@ -1339,8 +1342,7 @@ body.cursor-active .cursor-ring {
   }
 
   .overlay-close {
-    top: 0.45rem;
-    right: 0.45rem;
+    inset: 0.45rem 0.45rem auto auto;
   }
 
   .phone-group {
@@ -1360,12 +1362,16 @@ body.cursor-active .cursor-ring {
   }
 
   .overlay-subtitle {
+    position: relative;
+    top: 5%;
     font-size: clamp(1.08rem, 4.2vw, 1.38rem);
     letter-spacing: 0.04em;
     white-space: nowrap;
   }
 
   .overlay-cta {
+    position: relative;
+    top: 5%;
     min-width: 168px;
     padding: 0.45rem 0.98rem;
     font-size: 0.96rem;
