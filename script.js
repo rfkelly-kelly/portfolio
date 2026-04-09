@@ -222,7 +222,11 @@ const observer = new IntersectionObserver(
   }
 );
 
-fadeItems.forEach((item) => observer.observe(item));
+fadeItems.forEach((item, index) => {
+  const staggerDelay = Math.min(index * 55, 330);
+  item.style.setProperty('--reveal-delay', `${staggerDelay}ms`);
+  observer.observe(item);
+});
 
 // Subtle pointer parallax in hero
 const hero = document.querySelector('.hero');
