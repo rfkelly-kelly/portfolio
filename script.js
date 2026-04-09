@@ -11,6 +11,7 @@ const overlaySparkleLayer = document.querySelector('.overlay-sparkle-layer');
 const phoneStack = document.querySelector('.phone-stack');
 const overlayCta = document.querySelector('.overlay-cta');
 const overlayClose = document.querySelector('.overlay-close');
+const overlayContent = document.querySelector('.overlayContent');
 
 // Always start from the top section on refresh.
 if ('scrollRestoration' in history) {
@@ -68,9 +69,9 @@ if (introOverlay) {
     });
   }
 
-  // Dismiss only when clicking the backdrop outside the popup card
+  // Dismiss when clicking anywhere outside the popup card.
   introOverlay.addEventListener('click', (event) => {
-    if (event.target === introOverlay) {
+    if (!overlayContent || !overlayContent.contains(event.target)) {
       dismissIntroOverlay();
     }
   });

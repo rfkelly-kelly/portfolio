@@ -566,8 +566,8 @@ img {
 }
 
 .ornament-divider {
-  width: var(--container);
-  margin: clamp(0.2rem, 0.9vw, 0.6rem) auto;
+  width: min(460px, 88vw);
+  margin: clamp(0.05rem, 0.5vw, 0.35rem) auto;
   position: relative;
   height: 1.15rem;
 }
@@ -640,6 +640,50 @@ img {
   opacity: 0.55;
   background: rgba(242, 183, 207, 0.85);
   clip-path: polygon(50% 0%, 62% 35%, 100% 35%, 69% 57%, 81% 100%, 50% 74%, 19% 100%, 31% 57%, 0% 35%, 38% 35%);
+}
+
+.work-link-shell {
+  text-align: center;
+  width: min(760px, 92vw);
+  border: 1px solid rgba(18, 18, 18, 0.12);
+  border-radius: 0.65rem;
+  background: rgba(255, 255, 255, 0.72);
+  padding: clamp(1.2rem, 3.2vw, 2rem);
+}
+
+.work-link-shell p {
+  margin-inline: auto;
+}
+
+.work-link-copy {
+  text-align: center;
+  max-width: 52ch;
+  color: #6b6561;
+  font-size: clamp(1.02rem, 0.45vw + 0.92rem, 1.16rem);
+  line-height: 1.55;
+  font-weight: 300;
+}
+
+.work-link-btn {
+  margin-top: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(18, 18, 18, 0.24);
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  text-decoration: none;
+  color: #1d1b18;
+  background: rgba(255, 238, 246, 0.9);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  transition: transform 180ms ease, background-color 220ms ease;
+}
+
+.work-link-btn:hover,
+.work-link-btn:focus-visible {
+  transform: translateY(-1px);
+  background: rgba(255, 226, 240, 1);
 }
 
 .section-inner {
@@ -829,8 +873,13 @@ img {
   padding-top: clamp(1.8rem, 3.8vw, 2.9rem);
 }
 
+#portfolio-link.section {
+  padding-top: clamp(2.1rem, 4.2vw, 3.3rem);
+  padding-bottom: clamp(1rem, 2.3vw, 1.7rem);
+}
+
 #contact.section {
-  padding-top: clamp(2.8rem, 6vw, 4.8rem);
+  padding-top: clamp(1.4rem, 3.5vw, 2.4rem);
 }
 
 .projects-grid.work-grid {
