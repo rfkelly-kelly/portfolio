@@ -1413,7 +1413,7 @@ body.cursor-active .cursor-ring {
 
   .overlay-subtitle {
     position: relative;
-    top: clamp(66px, 16vw, 86px);
+    top: clamp(54px, 14vw, 74px);
     font-size: clamp(1.08rem, 4.2vw, 1.38rem);
     letter-spacing: 0.04em;
     white-space: nowrap;
@@ -1570,7 +1570,7 @@ body.cursor-active .cursor-ring {
   .overlay-subtitle {
     font-size: clamp(0.96rem, 4.2vw, 1.14rem);
     letter-spacing: 0.035em;
-    top: clamp(50px, 15vw, 66px);
+    top: clamp(42px, 13vw, 54px);
   }
 
   .overlay-cta {
