@@ -293,19 +293,49 @@ const contactForm = document.querySelector('.contact-form');
 const formStatus = document.querySelector('.form-status');
 
 if (contactForm && formStatus) {
-  contactForm.addEventListener('submit', (event) => {
+  contactForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const name = document.querySelector('#name');
     const email = document.querySelector('#email');
     const message = document.querySelector('#message');
+    const submitButton = contactForm.querySelector('button[type="submit"]');
 
     if (!name.value.trim() || !email.value.trim() || !message.value.trim()) {
       formStatus.textContent = 'Please fill in all fields first.';
       return;
     }
 
-    formStatus.textContent = 'Thanks! Your message is ready to send.';
-    contactForm.reset();
+    if (submitButton) submitButton.disabled = true;
+    formStatus.textContent = 'Sending your message...';
+
+    try {
+      const response = await fetch('https://formsubmit.co/ajax/reillyfaithk@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: name.value.trim(),
+          email: email.value.trim(),
+          message: message.value.trim(),
+          _subject: 'New portfolio contact message',
+          _template: 'table',
+          _captcha: 'false',
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit message');
+      }
+
+      formStatus.textContent = 'Thanks! Looking forward to connecting.';
+      contactForm.reset();
+    } catch (error) {
+      formStatus.textContent = 'There was a problem sending your message. Please try again.';
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
   });
 }
 
