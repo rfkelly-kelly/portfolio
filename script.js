@@ -436,3 +436,42 @@ if (canUseFancyCursor) {
 
   animateRing();
 }
+
+// Ensure hero video can autoplay on mobile: programmatically mute and attempt play,
+// falling back to a one-time touch/click listener if the browser blocks autoplay.
+(function ensureHeroAutoplay() {
+  const v = document.getElementById('heroVideo');
+  if (!v) return;
+
+  try {
+    v.muted = true;
+  } catch (e) {}
+
+  v.playsInline = true;
+  v.setAttribute('playsinline', '');
+  v.setAttribute('webkit-playsinline', '');
+  v.setAttribute('x5-playsinline', '');
+
+  const tryPlay = () => {
+    const playPromise = v.play();
+    if (playPromise !== undefined) {
+      playPromise.catch(() => {
+        const onUserInteract = () => {
+          v.play().finally(() => {
+            window.removeEventListener('touchstart', onUserInteract, { passive: true });
+            window.removeEventListener('click', onUserInteract);
+          });
+        };
+
+        window.addEventListener('touchstart', onUserInteract, { passive: true });
+        window.addEventListener('click', onUserInteract);
+      });
+    }
+  };
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    tryPlay();
+  } else {
+    document.addEventListener('DOMContentLoaded', tryPlay);
+  }
+})();
