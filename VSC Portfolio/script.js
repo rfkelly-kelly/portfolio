@@ -392,3 +392,95 @@ if (canUseFancyCursor) {
 
   animateRing();
 }
+
+// Keep autoplay reliable on mobile by forcing inline-muted playback and retrying
+// when the page/video lifecycle changes.
+(function ensureHeroAutoplay() {
+  const v = document.getElementById('heroVideo');
+  if (!v) return;
+
+  const forceInlineMutedAutoplay = () => {
+    v.autoplay = true;
+    v.loop = true;
+    v.muted = true;
+    v.defaultMuted = true;
+    v.playsInline = true;
+    v.setAttribute('autoplay', '');
+    v.setAttribute('muted', '');
+    v.setAttribute('loop', '');
+    v.setAttribute('playsinline', '');
+    v.setAttribute('webkit-playsinline', '');
+    v.setAttribute('x5-playsinline', '');
+  };
+
+  let interactionBound = false;
+  let autoplayUnlocked = false;
+
+  const bindUserInteractionFallback = () => {
+    if (interactionBound) return;
+    interactionBound = true;
+
+    const onUserInteract = () => {
+      forceInlineMutedAutoplay();
+      const resume = v.play();
+
+      if (!resume || typeof resume.finally !== 'function') {
+        window.removeEventListener('touchstart', onUserInteract);
+        window.removeEventListener('click', onUserInteract);
+        interactionBound = false;
+        return;
+      }
+
+      resume.finally(() => {
+        window.removeEventListener('touchstart', onUserInteract);
+        window.removeEventListener('click', onUserInteract);
+        interactionBound = false;
+      });
+    };
+
+    window.addEventListener('touchstart', onUserInteract, { passive: true });
+    window.addEventListener('click', onUserInteract);
+  };
+
+  const tryPlay = () => {
+    forceInlineMutedAutoplay();
+    const playPromise = v.play();
+
+    if (!playPromise || typeof playPromise.then !== 'function') {
+      autoplayUnlocked = true;
+      return;
+    }
+
+    playPromise
+      .then(() => {
+        autoplayUnlocked = true;
+      })
+      .catch(() => {
+        bindUserInteractionFallback();
+      });
+  };
+
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    tryPlay();
+  } else {
+    document.addEventListener('DOMContentLoaded', tryPlay, { once: true });
+  }
+
+  v.addEventListener('loadedmetadata', () => {
+    if (!autoplayUnlocked) tryPlay();
+  });
+
+  v.addEventListener('canplay', () => {
+    if (!autoplayUnlocked) tryPlay();
+  });
+
+  window.addEventListener('pageshow', () => {
+    if (!autoplayUnlocked || v.paused) tryPlay();
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && v.paused) {
+      tryPlay();
+    }
+  });
+})();

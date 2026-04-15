@@ -437,41 +437,94 @@ if (canUseFancyCursor) {
   animateRing();
 }
 
-// Ensure hero video can autoplay on mobile: programmatically mute and attempt play,
-// falling back to a one-time touch/click listener if the browser blocks autoplay.
+// Keep autoplay reliable on mobile by forcing inline-muted playback and retrying
+// when the page/video lifecycle changes.
 (function ensureHeroAutoplay() {
   const v = document.getElementById('heroVideo');
   if (!v) return;
 
-  try {
+  const forceInlineMutedAutoplay = () => {
+    v.autoplay = true;
+    v.loop = true;
     v.muted = true;
-  } catch (e) {}
+    v.defaultMuted = true;
+    v.playsInline = true;
+    v.setAttribute('autoplay', '');
+    v.setAttribute('muted', '');
+    v.setAttribute('loop', '');
+    v.setAttribute('playsinline', '');
+    v.setAttribute('webkit-playsinline', '');
+    v.setAttribute('x5-playsinline', '');
+  };
 
-  v.playsInline = true;
-  v.setAttribute('playsinline', '');
-  v.setAttribute('webkit-playsinline', '');
-  v.setAttribute('x5-playsinline', '');
+  let interactionBound = false;
+  let autoplayUnlocked = false;
+
+  const bindUserInteractionFallback = () => {
+    if (interactionBound) return;
+    interactionBound = true;
+
+    const onUserInteract = () => {
+      forceInlineMutedAutoplay();
+      const resume = v.play();
+
+      if (!resume || typeof resume.finally !== 'function') {
+        window.removeEventListener('touchstart', onUserInteract);
+        window.removeEventListener('click', onUserInteract);
+        interactionBound = false;
+        return;
+      }
+
+      resume.finally(() => {
+        window.removeEventListener('touchstart', onUserInteract);
+        window.removeEventListener('click', onUserInteract);
+        interactionBound = false;
+      });
+    };
+
+    window.addEventListener('touchstart', onUserInteract, { passive: true });
+    window.addEventListener('click', onUserInteract);
+  };
 
   const tryPlay = () => {
+    forceInlineMutedAutoplay();
     const playPromise = v.play();
-    if (playPromise !== undefined) {
-      playPromise.catch(() => {
-        const onUserInteract = () => {
-          v.play().finally(() => {
-            window.removeEventListener('touchstart', onUserInteract, { passive: true });
-            window.removeEventListener('click', onUserInteract);
-          });
-        };
 
-        window.addEventListener('touchstart', onUserInteract, { passive: true });
-        window.addEventListener('click', onUserInteract);
-      });
+    if (!playPromise || typeof playPromise.then !== 'function') {
+      autoplayUnlocked = true;
+      return;
     }
+
+    playPromise
+      .then(() => {
+        autoplayUnlocked = true;
+      })
+      .catch(() => {
+        bindUserInteractionFallback();
+      });
   };
 
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
     tryPlay();
   } else {
-    document.addEventListener('DOMContentLoaded', tryPlay);
+    document.addEventListener('DOMContentLoaded', tryPlay, { once: true });
   }
+
+  v.addEventListener('loadedmetadata', () => {
+    if (!autoplayUnlocked) tryPlay();
+  });
+
+  v.addEventListener('canplay', () => {
+    if (!autoplayUnlocked) tryPlay();
+  });
+
+  window.addEventListener('pageshow', () => {
+    if (!autoplayUnlocked || v.paused) tryPlay();
+  });
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden && v.paused) {
+      tryPlay();
+    }
+  });
 })();
