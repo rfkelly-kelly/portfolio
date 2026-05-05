@@ -12,6 +12,7 @@ const phoneStack = document.querySelector('.phone-stack');
 const overlayCta = document.querySelector('.overlay-cta');
 const overlayClose = document.querySelector('.overlay-close');
 const overlayContent = document.querySelector('.overlayContent');
+const hideIntroOnMobile = window.matchMedia('(max-width: 760px)').matches;
 
 // Always start from the top section on refresh.
 if ('scrollRestoration' in history) {
@@ -34,7 +35,13 @@ const dismissIntroOverlay = () => {
   }, prefersReducedMotion ? 0 : 620);
 };
 
-if (introOverlay) {
+if (introOverlay && hideIntroOnMobile) {
+  introOverlay.style.display = 'none';
+  introOverlay.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('loading');
+}
+
+if (introOverlay && !hideIntroOnMobile) {
   const showIntroOverlay = () => {
     introOverlay.classList.add('show');
 
