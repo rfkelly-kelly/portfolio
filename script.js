@@ -450,6 +450,10 @@ if (canUseFancyCursor) {
   const v = document.getElementById('heroVideo');
   if (!v) return;
 
+  // Set defaultMuted immediately so iOS picks it up before first load.
+  v.defaultMuted = true;
+  v.muted = true;
+
   const forceInlineMutedAutoplay = () => {
     v.autoplay = true;
     v.loop = true;
@@ -511,6 +515,10 @@ if (canUseFancyCursor) {
       });
   };
 
+  // Reset the video with defaultMuted=true so iOS honours the muted state.
+  forceInlineMutedAutoplay();
+  v.load();
+
   if (document.readyState === 'complete' || document.readyState === 'interactive') {
     tryPlay();
   } else {
@@ -522,6 +530,11 @@ if (canUseFancyCursor) {
   });
 
   v.addEventListener('canplay', () => {
+    if (!autoplayUnlocked) tryPlay();
+  });
+
+  // iOS fires 'suspend' when it pauses media loading; retry play when it does.
+  v.addEventListener('suspend', () => {
     if (!autoplayUnlocked) tryPlay();
   });
 
