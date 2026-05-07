@@ -1263,6 +1263,22 @@ body.cursor-active .cursor-ring {
   filter: blur(0);
 }
 
+@media (min-width: 1024px) {
+  .phone-group {
+    top: 56.8%;
+  }
+
+  .overlay-subtitle {
+    position: relative;
+    top: 0.65rem;
+  }
+
+  .overlay-cta {
+    position: relative;
+    top: 1rem;
+  }
+}
+
 @keyframes cuePulse {
   0%,
   100% {
